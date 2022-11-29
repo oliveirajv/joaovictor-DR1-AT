@@ -16,10 +16,18 @@ while True:
         break
     # Opção "new"
     if user_option.split(" ")[0] == "new":
-        file_name = user_option.split(' ')[1]
+        file_name = user_option.split(" ")[1]
         file_size = random.randrange(1, 8096)
         ext4._dir_files[file_name] = file_size
         print(file_name + " created")
+    # Opção "del"
+    if user_option.split(" ")[0] == "del":
+        file_name = user_option.split(" ")[1]
+        if file_name not in ext4._dir_files:
+            print("File does not exist")
+        else:
+            del ext4._dir_files[file_name]
+            print(file_name + " was deleted successfully")
     # Opção "ls"
     if user_option.split(" ")[0] == "ls":
         ext4.list_all_()
