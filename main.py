@@ -14,17 +14,11 @@ while True:
     while user_option.split(" ")[0] not in options:
         print("Command not found. Type `help' to see command list")
         break
-    # Opção 'new'
+    # Opção "new"
     if user_option.split(" ")[0] == "new":
         file_name = user_option.split(' ')[1]
-        # ATENÇÃO <-
-        # Verificar se o nome do arquivo já existe
-        # for key_name in ext4._dir_files.keys():
-        if file_name != ext4._dir_files.keys():
-            file_size = random.randrange(1, 8096)
-            ext4._dir_files[file_name] = file_size
-        elif file_name == ext4._dir_files.keys():
-            print("o arquvio já existe")
+        file_size = random.randrange(1, 8096)
+        ext4._dir_files[file_name] = file_size
         print(file_name + " created")
     # Opção "ls"
     if user_option.split(" ")[0] == "ls":
@@ -45,5 +39,3 @@ while True:
     if user_option.split(" ")[0] == "exit":
         break
         exit()
-    
-    
