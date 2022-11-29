@@ -6,13 +6,13 @@ class Directory:
         # Conteúdo do diretório
         self._dir_files = {}
         self._sub_dir = {}
-
+    # Função que cria um sub diretório
     def make_sub_dir(self, _sub_dir):
         self._sub_dir[_sub_dir._dir_name] = _sub_dir
-
+    # Função que lista o conteúdo do diretório
     def list_all_(self):
-        color = fg('slate_blue_1')
-        reset = attr('reset')
+        color = fg("slate_blue_1")
+        reset = attr("reset")
         for items in self._dir_files:
             print(" " + items)
         for items in self._sub_dir:
