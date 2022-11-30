@@ -1,0 +1,9 @@
+- [x] new
+- [x] del
+- [x] ls
+- [x] mkdir
+- [x] rmdir
+- [ ] cp
+- [ ] mv
+- [x] help
+- [x] exit

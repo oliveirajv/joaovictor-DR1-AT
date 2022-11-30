@@ -22,12 +22,12 @@ while True:
         print(file_name + " created")
     # Opção "del"
     if user_option.split(" ")[0] == "del":
-        file_name = user_option.split(" ")[1]
+        remove_file_name = user_option.split(" ")[1]
         if file_name not in ext4._dir_files:
             print("File does not exist")
         else:
-            del ext4._dir_files[file_name]
-            print(file_name + " was deleted successfully")
+            del ext4._dir_files[remove_file_name]
+            print(remove_file_name + " was deleted successfully")
     # Opção "ls"
     if user_option.split(" ")[0] == "ls":
         ext4.list_all_()
@@ -39,11 +39,22 @@ while True:
         # Colocando o novo diretório dentro do raiz
         ext4.make_sub_dir(new_dir)
         print("dir " + new_dir._dir_name + " created")
-    # Mostrando as opções existentes quando o usuário escolhe a opção "help"
+    # Opção "rmdir"
+    if user_option.split(" ")[0] == "rmdir":
+        remove_dir_name = user_option.split(" ")[1]
+        if remove_dir_name not in ext4._sub_dir:
+            print("Dir does not exist")
+        else:
+            del ext4._sub_dir[remove_dir_name]
+            print("dir " + remove_dir_name + " was deleted successfully")
+    # Opção "copy"
+    if user_option.split(" ")[0] == "cp":
+        pass
+    # Opção "help"
     if user_option.split(" ")[0] == "help":
         for option in options:
             print(" " + option)
-    # Parando o while e fechando o programa quando o usuário escolhe a opção "exit" 
+    # Opção "exit" 
     if user_option.split(" ")[0] == "exit":
         break
         exit()
