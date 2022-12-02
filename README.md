@@ -1,9 +1,11 @@
+# Terminal
+
 - [x] new
 - [x] del
 - [x] ls
 - [x] mkdir
 - [x] rmdir
-- [ ] cp
-- [ ] mv
+- [x] cp
+- [x] mv
 - [x] help
 - [x] exit
