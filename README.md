@@ -1,5 +1,7 @@
 # Terminal
 
+install the module colored
+
 - [x] new
 - [x] del
 - [x] ls
