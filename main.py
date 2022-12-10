@@ -1,51 +1,39 @@
 """ folder = input("joao@joao:~$ ")
 print(f"joao@joao:~/{folder}$") """
-
-import random
-
 from directory import Directory, ext4
-
+# Tupla com as opções disponíveis para o usuário
 options = ("new", "del", "ls", "mkdir", "rmdir", "cp", "mv", "help", "exit", "test")
-
-""" def check_command_length(command_length):
-    command = command_length.split(" ")
-    if len(command) > 3:
-        return print("Command not found. Type `help' to see command list")
-    elif len(command) >= 1:
-        pass
-    elif len(command) <= 0:
-        return print("Command not found. Type `help' to see command list") """
-# Fazendo um while para o programa rodar até que o usuário escolha a opção "exit"
+# Fazendo um while que termina quando o usuário escolha a opção "exit"
 while True:
     # Criando um input para o usuário escolher as opções
-    user_command = input("joao@joao:~$ ")
+    user_input = input("joao@joao:~$ ")
+    command = user_input.split(" ")[0]
     # Fazendo um while para dizer que a opção não existe, enquanto o usuário não escreve uma opção dentre as existentes
-    while user_command.split(" ")[0] not in options:
+    while command not in options:
         print("Command not found. Type `help' to see command list")
         break
     # Opção "new"
         # Cria um arquivo
-    if user_command.split(" ")[0] == "new":
-        file_name = user_command.split(" ")[1]
-        file_size = random.randrange(1, 8096)
-        ext4._dir_files[file_name] = file_size
+    if command == "new":
+        file_name = user_input.split(" ")[1]
+        ext4.create_file(file_name)
     # Opção "del"
         # Exlcui um arquivo
-    if user_command.split(" ")[0] == "del":
-        remove_file_name = user_command.split(" ")[1]
+    if command == "del":
+        remove_file_name = user_input.split(" ")[1]
         if file_name not in ext4._dir_files:
             print("File does not exist")
         else:
             del ext4._dir_files[remove_file_name]
     # Opção "ls"
         # Mostra todo o conteúdo dos diretórios
-    if user_command.split(" ")[0] == "ls":
+    if command == "ls":
         print("/")
         ext4.list_all()
     # Opção "mkdir"
         # Cria um novo diretório
-    if user_command.split(" ")[0] == "mkdir":
-        user_option = user_command.split(" ")
+    if command == "mkdir":
+        user_option = user_input.split(" ")
         if len(user_option) == 3:
             new_dir_name = user_option[1]
             new_dir_name = Directory(new_dir_name)
@@ -62,17 +50,17 @@ while True:
             ext4.make_sub_dir(new_dir)
     # Opção "rmdir"
         # Remove o diretório selecionado
-    if user_command.split(" ")[0] == "rmdir":
-        remove_dir_name = user_command.split(" ")[1]
+    if command == "rmdir":
+        remove_dir_name = user_input.split(" ")[1]
         if remove_dir_name not in ext4._sub_dir:
             print("Dir does not exist")
         else:
             ext4.delete_directory(remove_dir_name)
     # Opção "cp"
         # Faz uma cópia do arquivo para um novo diretório
-    if user_command.split(" ")[0] == "cp":
-        file_name = user_command.split(" ")[1]
-        dir_name = user_command.split(" ")[2]
+    if command == "cp":
+        file_name = user_input.split(" ")[1]
+        dir_name = user_input.split(" ")[2]
         if file_name not in ext4._dir_files:
             print("File does not exist")
         elif dir_name not in ext4._sub_dir:
@@ -83,9 +71,9 @@ while True:
             dir._dir_files[file_name] = copy_file_value
     # Opção "mv"
         # Move o arquivo para um novo diretório e exclui do anterior
-    if  user_command.split(" ")[0] == "mv":
-        file_name = user_command.split(" ")[1]
-        dir_name = user_command.split(" ")[2]
+    if  command == "mv":
+        file_name = user_input.split(" ")[1]
+        dir_name = user_input.split(" ")[2]
         if file_name not in ext4._dir_files:
             print("File does not exist") 
         elif dir_name not in ext4._sub_dir:
@@ -97,14 +85,14 @@ while True:
             del ext4._dir_files[file_name]
     # Opção "help"
         # Mostra os comandos disponíveis
-    if user_command.split(" ")[0] == "help":
+    if command == "help":
         for option in options:
             print(" " + option)
     # Opção "test"
-    if user_command.split(" ")[0] == "test":
+    if command == "test":
         pass
     # Opção "exit"
         # Fecha o programa
-    if user_command.split(" ")[0] == "exit":
+    if command == "exit":
         break
         exit()
