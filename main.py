@@ -93,7 +93,7 @@ while True:
         if remove_dir_name not in raiz._sub_dir:
             print("Dir does not exist")
         else:
-            raiz.delete_directory(remove_dir_name)
+            raiz.delete_sub_dir(remove_dir_name)
     # Opção "cp"
         # Faz uma cópia do arquivo para um novo diretório
     if command == "cp":
