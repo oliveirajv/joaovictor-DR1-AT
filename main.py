@@ -1,6 +1,44 @@
 """ folder = input("joao@joao:~$ ")
 print(f"joao@joao:~/{folder}$") """
-from directory import Directory, ext4
+from directory import Directory
+
+"""
+# Criando o diretório raiz
+raiz = Directory("/")
+home = Directory("home")
+# Criando um sub diretório "home" no diretório "raiz"
+raiz.make_sub_dir(home)
+print(raiz)
+# Criando um sub diretório "documents" no diretório "home"
+documents = Directory("documents")
+home.make_sub_dir(documents)
+print(raiz)
+# Criando um arquivo no diretório "raiz"
+raiz.create_file("text.txt")
+print(raiz)
+# Movendo o arquivo para o sub diretório "documents"
+raiz.move_file("text.txt", documents)
+print(raiz)
+"""
+raiz = Directory("/")
+print(raiz)
+# Criando um sub diretório "home" dentro do diretório "raiz"
+raiz.make_sub_dir("home")
+# Pegando a instância do sub diretório "home" 
+home = raiz.get_directory("home")
+print(home)
+# Criando um sub diretório "documents" no diretório home
+home.make_sub_dir("documents")
+# Pegando a instância do sub diretório "documents"
+documents = home.get_directory("documents")
+print(documents)
+# Criando um arquivo no diretório "raiz"
+raiz.create_file("Text.txt")
+print(raiz)
+# Movendo o arquivo para o diretório "documents"
+raiz.move_file("Text.txt", documents)
+print(documents._dir_files, documents._sub_dir)
+print(raiz)
 # Tupla com as opções disponíveis para o usuário
 options = ("new", "del", "ls", "mkdir", "rmdir", "cp", "mv", "help", "exit", "test")
 # Fazendo um while que termina quando o usuário escolha a opção "exit"
@@ -16,20 +54,20 @@ while True:
         # Cria um arquivo
     if command == "new":
         file_name = user_input.split(" ")[1]
-        ext4.create_file(file_name)
+        raiz.create_file(file_name)
     # Opção "del"
         # Exlcui um arquivo
     if command == "del":
         remove_file_name = user_input.split(" ")[1]
-        if file_name not in ext4._dir_files:
+        if file_name not in raiz._dir_files:
             print("File does not exist")
         else:
-            del ext4._dir_files[remove_file_name]
+            del raiz._dir_files[remove_file_name]
     # Opção "ls"
         # Mostra todo o conteúdo dos diretórios
     if command == "ls":
         print("/")
-        ext4.list_all()
+        raiz.list_all()
     # Opção "mkdir"
         # Cria um novo diretório
     if command == "mkdir":
@@ -38,7 +76,7 @@ while True:
             new_dir_name = user_option[1]
             new_dir_name = Directory(new_dir_name)
             dir_name = user_option[2]
-            dir = ext4.get_directory(dir_name)
+            dir = raiz.get_directory(dir_name)
             dir._sub_dir[new_dir_name._dir_name] = new_dir_name._sub_dir
             print(dir._sub_dir)
             print(new_dir_name)
@@ -47,47 +85,47 @@ while True:
             # Criando um novo diretório, fora do diretório raiz (que é "/")
             new_dir = Directory(new_dir)
             # Colocando o novo diretório dentro do raiz
-            ext4.make_sub_dir(new_dir)
+            raiz.make_sub_dir(new_dir)
     # Opção "rmdir"
         # Remove o diretório selecionado
     if command == "rmdir":
         remove_dir_name = user_input.split(" ")[1]
-        if remove_dir_name not in ext4._sub_dir:
+        if remove_dir_name not in raiz._sub_dir:
             print("Dir does not exist")
         else:
-            ext4.delete_directory(remove_dir_name)
+            raiz.delete_directory(remove_dir_name)
     # Opção "cp"
         # Faz uma cópia do arquivo para um novo diretório
     if command == "cp":
         file_name = user_input.split(" ")[1]
         dir_name = user_input.split(" ")[2]
-        if file_name not in ext4._dir_files:
+        if file_name not in raiz._dir_files:
             print("File does not exist")
-        elif dir_name not in ext4._sub_dir:
+        elif dir_name not in raiz._sub_dir:
             print("Dir does not exist")
         else:
-            dir = ext4.get_directory(dir_name)
-            copy_file_value = ext4._dir_files.get(file_name)
+            dir = raiz.get_directory(dir_name)
+            copy_file_value = raiz._dir_files.get(file_name)
             dir._dir_files[file_name] = copy_file_value
     # Opção "mv"
         # Move o arquivo para um novo diretório e exclui do anterior
     if  command == "mv":
         file_name = user_input.split(" ")[1]
         dir_name = user_input.split(" ")[2]
-        if file_name not in ext4._dir_files:
+        if file_name not in raiz._dir_files:
             print("File does not exist") 
-        elif dir_name not in ext4._sub_dir:
+        elif dir_name not in raiz._sub_dir:
             print("Dir does not exist")        
         else:
-            copy_file_value = ext4._dir_files.get(file_name)
-            dir = ext4.get_directory(dir_name)
+            copy_file_value = raiz._dir_files.get(file_name)
+            dir = raiz.get_directory(dir_name)
             dir._dir_files[file_name] = copy_file_value            
-            del ext4._dir_files[file_name]
+            del raiz._dir_files[file_name]
     # Opção "help"
         # Mostra os comandos disponíveis
     if command == "help":
         for option in options:
-            print(" " + option)
+            print(" " , option)
     # Opção "test"
     if command == "test":
         pass
