@@ -85,7 +85,7 @@ while True:
             # Criando um novo diretório, fora do diretório raiz (que é "/")
             new_dir = Directory(new_dir)
             # Colocando o novo diretório dentro do raiz
-            raiz.make_sub_dir(new_dir)
+            raiz.make_sub_dir(new_dir._dir_name)
     # Opção "rmdir"
         # Remove o diretório selecionado
     if command == "rmdir":
