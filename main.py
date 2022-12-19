@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from directory import Directory
 
 def getDir(caminho, caminho_relativo):
@@ -25,49 +24,6 @@ def getDir(caminho, caminho_relativo):
 raiz = Directory("/")
 atual = raiz
 
-=======
-""" folder = input("joao@joao:~$ ")
-print(f"joao@joao:~/{folder}$") """
-from directory import Directory
-
-"""
-# Criando o diretório raiz
-raiz = Directory("/")
-home = Directory("home")
-# Criando um sub diretório "home" no diretório "raiz"
-raiz.make_sub_dir(home)
-print(raiz)
-# Criando um sub diretório "documents" no diretório "home"
-documents = Directory("documents")
-home.make_sub_dir(documents)
-print(raiz)
-# Criando um arquivo no diretório "raiz"
-raiz.create_file("text.txt")
-print(raiz)
-# Movendo o arquivo para o sub diretório "documents"
-raiz.move_file("text.txt", documents)
-print(raiz)
-"""
-raiz = Directory("/")
-print(raiz)
-# Criando um sub diretório "home" dentro do diretório "raiz"
-raiz.make_sub_dir("home")
-# Pegando a instância do sub diretório "home" 
-home = raiz.get_directory("home")
-print(home)
-# Criando um sub diretório "documents" no diretório home
-home.make_sub_dir("documents")
-# Pegando a instância do sub diretório "documents"
-documents = home.get_directory("documents")
-print(documents)
-# Criando um arquivo no diretório "raiz"
-raiz.create_file("Text.txt")
-print(raiz)
-# Movendo o arquivo para o diretório "documents"
-raiz.move_file("Text.txt", documents)
-print(documents._dir_files, documents._sub_dir)
-print(raiz)
->>>>>>> d1b991e8c8bbaadb2aa8a5288202c49ed70ca91f
 # Tupla com as opções disponíveis para o usuário
 options = ("new", "del", "ls", "mkdir", "rmdir", "cp", "mv", "help", "exit", "test", "cd")
 # Fazendo um while que termina quando o usuário escolha a opção "exit"
@@ -94,7 +50,6 @@ while True:
             del raiz._dir_files[remove_file_name]
     # Opção "ls"
         # Mostra todo o conteúdo dos diretórios
-<<<<<<< HEAD
     if command == "ls":        
         atual.list_all()
     # Opção "mkdir"
@@ -117,29 +72,6 @@ while True:
             else:
                 local = getDir(caminho, caminho_relativo)        
         local.make_sub_dir(novo_dir)            
-=======
-    if command == "ls":
-        print("/")
-        raiz.list_all()
-    # Opção "mkdir"
-        # Cria um novo diretório
-    if command == "mkdir":
-        user_option = user_input.split(" ")
-        if len(user_option) == 3:
-            new_dir_name = user_option[1]
-            new_dir_name = Directory(new_dir_name)
-            dir_name = user_option[2]
-            dir = raiz.get_directory(dir_name)
-            dir._sub_dir[new_dir_name._dir_name] = new_dir_name._sub_dir
-            print(dir._sub_dir)
-            print(new_dir_name)
-        else:
-            new_dir = user_option[1]
-            # Criando um novo diretório, fora do diretório raiz (que é "/")
-            new_dir = Directory(new_dir)
-            # Colocando o novo diretório dentro do raiz
-            raiz.make_sub_dir(new_dir._dir_name)
->>>>>>> d1b991e8c8bbaadb2aa8a5288202c49ed70ca91f
     # Opção "rmdir"
         # Remove o diretório selecionado
     if command == "rmdir":
@@ -175,7 +107,8 @@ while True:
             dir = raiz.get_directory(dir_name)
             dir._dir_files[file_name] = copy_file_value            
             del raiz._dir_files[file_name]
-<<<<<<< HEAD
+    # Opção "cd"
+        # Possibilita a movimentação entre diretórios
     if command == "cd":
         user_option = user_input.split(" ")[1]
         caminho = user_option.split('/')          
@@ -191,8 +124,6 @@ while True:
                 pass
             else:
                 atual = getDir(caminho, caminho_relativo)
-=======
->>>>>>> d1b991e8c8bbaadb2aa8a5288202c49ed70ca91f
     # Opção "help"
         # Mostra os comandos disponíveis
     if command == "help":

@@ -1,23 +1,18 @@
 from random import randrange
 
-#from colored import fg, attr
+from colored import fg, attr
 
 class Directory:
-    def __init__(self, _dir_name, _dir_pai=None):
+    def __init__(self, _dir_name, _dir_pai = None):
         self._dir_name = _dir_name
         # Conteúdo do diretório
         self._dir_files = {}
         self._sub_dir = {}
-<<<<<<< HEAD
         self._parent = _dir_pai
-=======
-        self._parent = None
->>>>>>> d1b991e8c8bbaadb2aa8a5288202c49ed70ca91f
     # Pega diretório
     def get_directory(self, _dir_name):
         dir = self._sub_dir[_dir_name]
         return dir
-<<<<<<< HEAD
 
     def temFilho(self, subdir):
         if (subdir != '..'):
@@ -32,8 +27,6 @@ class Directory:
                 return self._sub_dir.get(subdir)
             return None
         return self._dir_pai
-=======
->>>>>>> d1b991e8c8bbaadb2aa8a5288202c49ed70ca91f
     # Cria arquivo
     def create_file(self, _file_name):
         _file_size = randrange(1, 8096)
@@ -43,23 +36,16 @@ class Directory:
         pass    
     # Lista conteúdo do diretório
     def list_all(self):
-        #color = fg("slate_blue_1")
-        #reset = attr("reset")
+        color = fg("slate_blue_1")
+        reset = attr("reset")
         for items in self._dir_files:
             print(" " , items , self._dir_files[items])
         for items in self._sub_dir:
-            #print(color , items , self._sub_dir[items] , reset)
-            print(items, self._sub_dir[items])
+            print(color , items , self._sub_dir[items] , reset)
     # Cria sub diretório
     def make_sub_dir(self, _sub_dir):
-<<<<<<< HEAD
         dir = Directory(_sub_dir, self)
         self._sub_dir[dir._dir_name] = dir
-=======
-        dir = Directory(_sub_dir)
-        self._sub_dir[dir._dir_name] = dir
-        # self._sub_dir[_sub_dir._dir_name] = _sub_dir._dir_files, _sub_dir._sub_dir
->>>>>>> d1b991e8c8bbaadb2aa8a5288202c49ed70ca91f
     # Deleta sub diretório
     def delete_sub_dir(self, _dir_name):
         del self._sub_dir[_dir_name]    
@@ -74,7 +60,6 @@ class Directory:
     # Mostrando a classe Directory formatado
     def __str__(self):
         return str(self._dir_name) + str(self._dir_files) + str(self._sub_dir)
-<<<<<<< HEAD
     
     def getPai(self):
         return self._parent
@@ -96,5 +81,3 @@ class Directory:
         else:
             result = '/'
         return result
-=======
->>>>>>> d1b991e8c8bbaadb2aa8a5288202c49ed70ca91f
