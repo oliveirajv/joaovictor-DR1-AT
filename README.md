@@ -7,7 +7,7 @@
     pip install colored  
   
 :us:
-  The idea of this project was recreate the terminal functionalities.
+  The idea of this project was recreate the terminal.
 
   Install the colored module: https://pypi.org/project/colored/
     
@@ -20,5 +20,6 @@
 - [x] rmdir
 - [x] cp
 - [x] mv
+- [x] cd
 - [x] help
 - [x] exit

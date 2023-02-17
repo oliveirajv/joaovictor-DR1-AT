@@ -14,9 +14,9 @@ def obter_diretorio(caminho, caminho_relativo):
             prox_dir = diretorio_raiz        
         # Enquanto for possível descer na árvore, pega o próximo
         # diretório do caminho especificado
-        for d in caminho:
-            if (prox_dir.tem_filho(d)):
-                prox_dir = prox_dir.obter_sub_dir(d)
+        for diretorio in caminho:
+            if (prox_dir.tem_filho(diretorio)):
+                prox_dir = prox_dir.obter_sub_dir(diretorio)
             else:
                 return None            
         return prox_dir
@@ -29,7 +29,7 @@ comandos = ("new", "del", "ls", "mkdir", "rmdir", "cp", "mv", "cd", "help", "exi
 # Fazendo um while que termina quando o usuário escolha a opção "exit"
 while True:
     # Criando um input para o usuário escolher as opções
-    usuario_input = input("joao@victor:" + diretorio_atual.obter_caminho_completo() + "$ ")
+    usuario_input = input(f"joao@victor:{diretorio_atual.obter_caminho_completo()}$ ")
     comando = usuario_input.split(" ")[0]
     # Fazendo um while para dizer que a opção não existe, enquanto o usuário não escreve uma opção dentre as existentes
     while comando not in comandos:
@@ -38,16 +38,43 @@ while True:
     # Opção "new"
         # Cria um arquivo
     if comando == "new":
-        arquivo_nome = usuario_input.split(" ")[1]
-        diretorio_raiz.criar_arquivo(arquivo_nome)
+        usuario_opcao = usuario_input.split(" ")[1]
+        caminho = usuario_opcao.split('/')
+        
+        novo_arquivo_nome = caminho.pop()
+
+        if usuario_opcao[0] == '/':
+            caminho_relativo = False
+            # Removendo o primeiro elemento vazio da lista
+            caminho.pop(0)
+            local = obter_diretorio(caminho, caminho_relativo)
+        else:
+            caminho_relativo = True
+            if len(caminho) == 0:      
+                local = diretorio_atual
+            else:
+                local = obter_diretorio(caminho, caminho_relativo)  
+        local.criar_arquivo(novo_arquivo_nome)
     # Opção "del"
         # Exlcui um arquivo
     if comando == "del":
-        remover_arquivo_nome = usuario_input.split(" ")[1]
-        if arquivo_nome not in diretorio_raiz._dir_arquivos:
-            print("File does not exist")
+        usuario_opcao = usuario_input.split(" ")[1]
+        caminho = usuario_opcao.split('/')
+        
+        arquivo_deletar = caminho.pop()
+
+        if usuario_opcao[0] == '/':
+            caminho_relativo = False
+            # Removendo o primeiro elemento vazio da lista
+            caminho.pop(0)
+            local = obter_diretorio(caminho, caminho_relativo)
         else:
-            del diretorio_raiz._dir_arquivos[remover_arquivo_nome]
+            caminho_relativo = True
+            if len(caminho) == 0:      
+                local = diretorio_atual
+            else:
+                local = obter_diretorio(caminho, caminho_relativo)        
+        local.deletar_arquivo(arquivo_deletar)
     # Opção "ls"
         # Mostra todo o conteúdo dos diretórios
     if comando == "ls":        
@@ -62,7 +89,7 @@ while True:
 
         if usuario_opcao[0] == '/':
             caminho_relativo = False
-            ## Removendo o primeiro elemento vazio da lista
+            # Removendo o primeiro elemento vazio da lista
             caminho.pop(0)
             local = obter_diretorio(caminho, caminho_relativo)
         else:
@@ -75,11 +102,23 @@ while True:
     # Opção "rmdir"
         # Remove o diretório selecionado
     if comando == "rmdir":
-        remover_diretorio_nome = usuario_input.split(" ")[1]
-        if remover_diretorio_nome not in diretorio_raiz._sub_dir:
-            print("Dir does not exist")
+        usuario_opcao = usuario_input.split(" ")[1]
+        caminho = usuario_opcao.split('/')
+        
+        diretorio_deletar = caminho.pop()
+
+        if usuario_opcao[0] == '/':
+            caminho_relativo = False
+            # Removendo o primeiro elemento vazio da lista
+            caminho.pop(0)
+            local = obter_diretorio(caminho, caminho_relativo)
         else:
-            diretorio_raiz.deletar_sub_dir(remover_diretorio_nome)
+            caminho_relativo = True
+            if len(caminho) == 0:      
+                local = diretorio_atual
+            else:
+                local = obter_diretorio(caminho, caminho_relativo)  
+        local.deletar_sub_dir(diretorio_deletar)
     # Opção "cp"
         # Faz uma cópia do arquivo para um novo diretório
     if comando == "cp":
@@ -96,17 +135,22 @@ while True:
     # Opção "mv"
         # Move o arquivo para um novo diretório e exclui do anterior
     if  comando == "mv":
-        arquivo_nome = usuario_input.split(" ")[1]
-        dir_name = usuario_input.split(" ")[2]
-        if arquivo_nome not in diretorio_raiz._dir_arquivos:
-            print("File does not exist") 
-        elif dir_name not in diretorio_raiz._sub_dir:
-            print("Dir does not exist")        
+        usuario_opcao = usuario_input.split(" ")[1]
+        caminho = usuario_opcao.split('/')
+        
+        arquivo_mover = caminho.pop()
+
+        if usuario_opcao[0] == '/':
+            caminho_relativo = False
+            # Removendo o primeiro elemento vazio da lista
+            caminho.pop(0)
+            local = obter_diretorio(caminho, caminho_relativo)
         else:
-            copia_arquivo_valor = diretorio_raiz._dir_arquivos.get(arquivo_nome)
-            dir = diretorio_raiz.get_directory(dir_name)
-            dir._dir_arquivos[arquivo_nome] = copia_arquivo_valor            
-            del diretorio_raiz._dir_arquivos[arquivo_nome]
+            caminho_relativo = True
+            if len(caminho) == 0:      
+                local = diretorio_atual
+            else:
+                local = obter_diretorio(caminho, caminho_relativo)
     # Opção "cd"
         # Possibilita a movimentação entre diretórios
     if comando == "cd":

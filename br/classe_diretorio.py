@@ -1,5 +1,4 @@
 from random import randrange
-
 from colored import fg, attr
 
 class Diretorio:
@@ -10,16 +9,16 @@ class Diretorio:
         self._sub_dir = {}
         self._dir_pai = _dir_pai
     # Pega o diretório pai
-    def get_pai(self):
+    def obter_pai(self):
         return self._dir_pai
     # Pega todos os diretórios até o que o usuário está
     def obter_caminho_completo(self):
         caminho_completo = [self._dir_nome]
-        pai = self.get_pai()
+        pai = self.obter_pai()
 
         while (pai != None):            
             caminho_completo.insert(0, pai._dir_nome)
-            pai = pai.get_pai()        
+            pai = pai.obter_pai()        
         resultado = ''
         if len(caminho_completo) > 1:
             for i,dir in enumerate(caminho_completo):
@@ -53,8 +52,8 @@ class Diretorio:
         _arquivo_tamanho = randrange(1, 8096)
         self._dir_arquivos[_arquivo_nome] = _arquivo_tamanho
     # Deleta arquivo
-    def deletar_arquivo(self, _arquivo_nome, _dir_nome):
-        pass    
+    def deletar_arquivo(self, _arquivo_nome):
+        del self._dir_arquivos[_arquivo_nome]
     # Lista conteúdo do diretório
     def listar_conteudo(self):
         cor = fg("slate_blue_1")

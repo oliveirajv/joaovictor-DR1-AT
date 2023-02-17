@@ -1,25 +1,25 @@
-from directory import Directory
+from class_directory import Directory
 
-def getDir(caminho, caminho_relativo):
-    # Este método busca se há o caminho de diretórios 
-    # formado pelos elementos da lista "caminho" passada como parâmetro.
-    # O parâmetro booleano "caminho_relativo" especifica se os
-    # elementos da lista devem ser buscados em caminhos
+def get_dir(path, relative_path):
+    # Este método busca se há o path de diretórios 
+    # formado pelos elementos da lista "path" passada como parâmetro.
+    # O parâmetro booleano "relative_path" especifica se os
+    # elementos da lista devem ser buscados em paths
     # relativos ao diretório atual (dir1/...) ou a partir da raiz (/dir1/...)
-    # Caso o caminho não seja encontrado, a função retorna None
-    # Caso contrário, é retornado o objeto Diretorio do final do caminho
-        if (caminho_relativo):
-            prox_dir = atual_directory
+    # Caso o path não seja encontrado, a função retorna None
+    # Caso contrário, é retornado o objeto Diretorio do final do path
+        if (relative_path):
+            next_directory = atual_directory
         else:
-            prox_dir = root_directory        
-        ## Enquanto for possível descer na árvore, pega o próximo
-        ## diretório do caminho especificado
-        for d in caminho:
-            if (prox_dir.temFilho(d)):
-                prox_dir = prox_dir.getSubDir(d)
+            next_directory = root_directory        
+        # Enquanto for possível descer na árvore, pega o próximo
+        # diretório do path especificado
+        for directory in path:
+            if (next_directory.has_child(directory)):
+                next_directory = next_directory.get_sub_dir(directory)
             else:
                 return None            
-        return prox_dir
+        return next_directory
 # Criando o diretório raiz
 root_directory = Directory("/")
 # Armazenando o diretório atual na variáriavel "atual_directory"
@@ -29,7 +29,7 @@ options = ("new", "del", "ls", "mkdir", "rmdir", "cp", "mv", "cd", "help", "exit
 # Fazendo um while que termina quando o usuário escolha a opção "exit"
 while True:
     # Criando um input para o usuário escolher as opções
-    user_input = input("joao@victor:" + atual_directory.getCompleteName() + "$ ")
+    user_input = input(f"joao@victor:{atual_directory.get_complete_name()}$ ")
     command = user_input.split(" ")[0]
     # Fazendo um while para dizer que a opção não existe, enquanto o usuário não escreve uma opção dentre as existentes
     while command not in options:
@@ -38,16 +38,43 @@ while True:
     # Opção "new"
         # Cria um arquivo
     if command == "new":
-        file_name = user_input.split(" ")[1]
-        root_directory.create_file(file_name)
+        user_option = user_input.split(" ")[1]
+        path = user_option.split('/')
+        
+        new_file_name = path.pop()
+
+        if user_option[0] == '/':
+            relative_path = False
+            # Removendo o primeiro elemento vazio da lista
+            path.pop(0)
+            local = get_dir(path, relative_path)
+        else:
+            relative_path = True
+            if len(path) == 0:      
+                local = atual_directory
+            else:
+                local = get_dir(path, relative_path)  
+        local.create_file(new_file_name)
     # Opção "del"
         # Exlcui um arquivo
     if command == "del":
-        remove_file_name = user_input.split(" ")[1]
-        if file_name not in root_directory._dir_files:
-            print("File does not exist")
+        user_option = user_input.split(" ")[1]
+        path = user_option.split('/')
+        
+        delete_file_name = path.pop()
+
+        if user_option[0] == '/':
+            relative_path = False
+            # Removendo o primeiro elemento vazio da lista
+            path.pop(0)
+            local = get_dir(path, relative_path)
         else:
-            del root_directory._dir_files[remove_file_name]
+            relative_path = True
+            if len(path) == 0:      
+                local = atual_directory
+            else:
+                local = get_dir(path, relative_path)  
+        local.delete_file(delete_file_name)
     # Opção "ls"
         # Mostra todo o conteúdo dos diretórios
     if command == "ls":        
@@ -56,30 +83,42 @@ while True:
         # Cria um novo diretório
     if command == "mkdir":
         user_option = user_input.split(" ")[1]
-        caminho = user_option.split('/')
+        path = user_option.split('/')
         
-        novo_dir = caminho.pop()
+        create_directory_name = path.pop()
 
         if user_option[0] == '/':
-            caminho_relativo = False
-            ## Removendo o primeiro elemento vazio da lista
-            caminho.pop(0)
-            local = getDir(caminho, caminho_relativo)
+            relative_path = False
+            # Removendo o primeiro elemento vazio da lista
+            path.pop(0)
+            local = get_dir(path, relative_path)
         else:
-            caminho_relativo = True
-            if len(caminho) == 0:      
+            relative_path = True
+            if len(path) == 0:      
                 local = atual_directory
             else:
-                local = getDir(caminho, caminho_relativo)        
-        local.make_sub_dir(novo_dir)            
+                local = get_dir(path, relative_path)  
+        local.make_sub_dir(create_directory_name)            
     # Opção "rmdir"
         # Remove o diretório selecionado
     if command == "rmdir":
-        remove_dir_name = user_input.split(" ")[1]
-        if remove_dir_name not in root_directory._sub_dir:
-            print("Dir does not exist")
+        user_option = user_input.split(" ")[1]
+        path = user_option.split('/')
+        
+        delete_directory_name = path.pop()
+
+        if user_option[0] == '/':
+            relative_path = False
+            # Removendo o primeiro elemento vazio da lista
+            path.pop(0)
+            local = get_dir(path, relative_path)
         else:
-            root_directory.delete_sub_dir(remove_dir_name)
+            relative_path = True
+            if len(path) == 0:      
+                local = atual_directory
+            else:
+                local = get_dir(path, relative_path)  
+        local.delete_sub_dir(delete_directory_name)
     # Opção "cp"
         # Faz uma cópia do arquivo para um novo diretório
     if command == "cp":
@@ -111,19 +150,19 @@ while True:
         # Possibilita a movimentação entre diretórios
     if command == "cd":
         user_option = user_input.split(" ")[1]
-        caminho = user_option.split('/')          
+        path = user_option.split('/')          
 
         if user_option[0] == '/':
-            caminho_relativo = False
-            ## Removendo o primeiro elemento vazio da lista
-            caminho.pop(0)
-            atual_directory = getDir(caminho, caminho_relativo)
+            relative_path = False
+            # Removendo o primeiro elemento vazio da lista
+            path.pop(0)
+            atual_directory = get_dir(path, relative_path)
         else:
-            caminho_relativo = True
-            if len(caminho) == 0:      
+            relative_path = True
+            if len(path) == 0:      
                 pass
             else:
-                atual_directory = getDir(caminho, caminho_relativo)
+                atual_directory = get_dir(path, relative_path)
     # Opção "help"
         # Mostra os comandos disponíveis
     if command == "help":

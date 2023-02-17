@@ -1,5 +1,4 @@
 from random import randrange
-
 from colored import fg, attr
 
 class Directory:
@@ -9,17 +8,17 @@ class Directory:
         self._dir_files = {}
         self._sub_dir = {}
         self._dir_parent = _dir_parent
-    # Pega o diretório pai
-    def getPai(self):
+    # Pega o diretório parent
+    def get_parent(self):
         return self._dir_parent
     # Pega todos os diretórios até o que o usuário está
-    def getCompleteName(self):
+    def get_complete_name(self):
         complete_path = [self._dir_name]
-        pai = self.getPai()
+        parent = self.get_parent()
 
-        while (pai != None):            
-            complete_path.insert(0, pai._dir_name)
-            pai = pai.getPai()        
+        while (parent != None):            
+            complete_path.insert(0, parent._dir_name)
+            parent = parent.get_parent()        
         result = ''
         if len(complete_path) > 1:
             for i,dir in enumerate(complete_path):
@@ -35,16 +34,16 @@ class Directory:
         dir = self._sub_dir[_dir_name]
         return dir
     # Verifica se tem filho
-    def temFilho(self, subdir):
+    def has_child(self, subdir):
         if (subdir != '..'):
             if (subdir in self._sub_dir):
                 return True
             return False
         return True
     # Pega o sub diretório
-    def getSubDir(self, subdir):
+    def get_sub_dir(self, subdir):
         if (subdir != '..'):
-            if (self.temFilho(subdir)):
+            if (self.has_child(subdir)):
                 return self._sub_dir.get(subdir)
             return None
         return self._dir_parent
@@ -53,8 +52,8 @@ class Directory:
         _file_size = randrange(1, 8096)
         self._dir_files[_file_name] = _file_size
     # Deleta arquivo
-    def delete_file(self, _file_name, _dir_name):
-        pass    
+    def delete_file(self, _file_name):
+        self._dir_files[_file_name]    
     # Lista conteúdo do diretório
     def list_all(self):
         color = fg("slate_blue_1")
