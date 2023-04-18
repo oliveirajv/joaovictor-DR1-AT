@@ -2,8 +2,8 @@
 :brazil:
   A ideia desse projeto foi reproduzir o funcionamento do terminal.
   
-  As pastas "br-v2" e "en-v2" contém códigos que manipulam o arquivos e diretórios do sistema operacional, não apagando as alterações feitas durante a execução do programa.
-  Já as pastas "br-v1" e "en-v2" cria arquivos e diretórios em um dicionário.
+  As pastas "br-v2" e "en-v2" contém códigos que manipulam os arquivos e diretórios do sistema operacional, não apagando as alterações feitas durante a execução do programa.
+  Já as pastas "br-v1" e "en-v2" criam arquivos e diretórios em um dicionário.
 
   Nos códigos v2 faço uso de 3 variáveis de ambiente são elas: USER, PASSWORD e BACKUP. Então caso queira usar lembre-se de criar.
   
