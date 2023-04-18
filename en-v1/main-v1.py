@@ -1,5 +1,4 @@
 from class_directory import Directory
-
 def get_dir(path, relative_path):
     # Este método busca se há o path de diretórios 
     # formado pelos elementos da lista "path" passada como parâmetro.
@@ -122,30 +121,11 @@ while True:
     # Opção "cp"
         # Faz uma cópia do arquivo para um novo diretório
     if command == "cp":
-        file_name = user_input.split(" ")[1]
-        dir_name = user_input.split(" ")[2]
-        if file_name not in root_directory._dir_files:
-            print("File does not exist")
-        elif dir_name not in root_directory._sub_dir:
-            print("Dir does not exist")
-        else:
-            dir = root_directory.get_directory(dir_name)
-            copy_file_value = root_directory._dir_files.get(file_name)
-            dir._dir_files[file_name] = copy_file_value
+        pass
     # Opção "mv"
         # Move o arquivo para um novo diretório e exclui do anterior
     if  command == "mv":
-        file_name = user_input.split(" ")[1]
-        dir_name = user_input.split(" ")[2]
-        if file_name not in root_directory._dir_files:
-            print("File does not exist") 
-        elif dir_name not in root_directory._sub_dir:
-            print("Dir does not exist")        
-        else:
-            copy_file_value = root_directory._dir_files.get(file_name)
-            dir = root_directory.get_directory(dir_name)
-            dir._dir_files[file_name] = copy_file_value            
-            del root_directory._dir_files[file_name]
+        pass
     # Opção "cd"
         # Possibilita a movimentação entre diretórios
     if command == "cd":

@@ -1,6 +1,5 @@
 from random import randrange
 from colored import fg, attr
-
 class Directory:
     def __init__(self, _dir_name, _dir_parent = None):
         self._dir_name = _dir_name

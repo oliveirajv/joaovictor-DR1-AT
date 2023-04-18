@@ -1,5 +1,4 @@
 from classe_diretorio import Diretorio
-
 def obter_diretorio(caminho, caminho_relativo):
     # Este método busca se há o caminho de diretórios 
     # formado pelos elementos da lista "caminho" passada como parâmetro.
@@ -122,35 +121,11 @@ while True:
     # Opção "cp"
         # Faz uma cópia do arquivo para um novo diretório
     if comando == "cp":
-        arquivo_nome = usuario_input.split(" ")[1]
-        dir_name = usuario_input.split(" ")[2]
-        if arquivo_nome not in diretorio_raiz._dir_arquivos:
-            print("File does not exist")
-        elif dir_name not in diretorio_raiz._sub_dir:
-            print("Dir does not exist")
-        else:
-            dir = diretorio_raiz.get_directory(dir_name)
-            copia_arquivo_valor = diretorio_raiz._dir_arquivos.get(arquivo_nome)
-            dir._dir_arquivos[arquivo_nome] = copia_arquivo_valor
+        pass
     # Opção "mv"
         # Move o arquivo para um novo diretório e exclui do anterior
     if  comando == "mv":
-        usuario_opcao = usuario_input.split(" ")[1]
-        caminho = usuario_opcao.split('/')
-        
-        arquivo_mover = caminho.pop()
-
-        if usuario_opcao[0] == '/':
-            caminho_relativo = False
-            # Removendo o primeiro elemento vazio da lista
-            caminho.pop(0)
-            local = obter_diretorio(caminho, caminho_relativo)
-        else:
-            caminho_relativo = True
-            if len(caminho) == 0:      
-                local = diretorio_atual
-            else:
-                local = obter_diretorio(caminho, caminho_relativo)
+        pass
     # Opção "cd"
         # Possibilita a movimentação entre diretórios
     if comando == "cd":
